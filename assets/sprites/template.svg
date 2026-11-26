@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <rect width="256" height="256" rx="24" fill="#d9d6ce"/>
+  <circle cx="128" cy="112" r="58" fill="#a4a4a4"/>
+  <rect x="70" y="168" width="116" height="48" rx="24" fill="#7a7a7a"/>
+  <circle cx="128" cy="112" r="38" fill="#ededed" opacity=".55"/>
+  <text x="128" y="230" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#333">SUBSTITUIR SPRITE</text>
+</svg>
