@@ -133,15 +133,19 @@ function describeBattleEvent(event: BattleState["events"][number], battle: Battl
   }
 }
 
+
 const spriteExtensions = ["png", "webp", "jpg", "jpeg", "svg"];
 
 function spriteSources(id: string, folder: SpriteFolder): string[] {
+  const base = import.meta.env.BASE_URL;
+
   return [
-    ...spriteExtensions.map((extension) => `/sprites/${folder}/${id}.${extension}`),
-    ...spriteExtensions.map((extension) => `/sprites/${id}.${extension}`),
-    "/sprites/template.svg",
+    ...spriteExtensions.map((extension) => `${base}sprites/${folder}/${id}.${extension}`),
+    ...spriteExtensions.map((extension) => `${base}sprites/${id}.${extension}`),
+    `${base}sprites/template.svg`,
   ];
 }
+
 
 function Sprite({
   id,
@@ -600,20 +604,30 @@ function App() {
         ...buildEncounterCombatants(encounter),
       ],
     };
+
     const created = createBattle(setup);
     const started = startRound(created);
+
     setCurrentEncounterTitle(encounter.title);
     setBattle(started);
+
+    const base = import.meta.env.BASE_URL;
+
     const tracks = [
-      "/music/Raccoon%20Quest.mp3",
-      "/music/Raccoon%20Quest%20(The%20Serpent).mp3",
-      "/music/Raccoon%20Quest%20(The%20False%20Prophet).mp3",
-      "/music/Raccon%20Quest%20(The%20Beast).mp3",
-      "/music/Epic%20imaginary%20Ballad.mp3",
+      "Raccoon%20Quest.mp3",
+      "Raccoon%20Quest%20(The%20Serpent).mp3",
+      "Raccoon%20Quest%20(The%20False%20Prophet).mp3",
+      "Raccon%20Quest%20(The%20Beast).mp3",
+      "Epic%20imaginary%20Ballad.mp3",
+      "Festival%20of%20the%20Brave.mp3",
     ];
-    const audio = new Audio(tracks[Math.floor(Math.random() * tracks.length)]);
+
+    const selectedTrack = tracks[Math.floor(Math.random() * tracks.length)];
+
+    const audio = new Audio(`${base}music/${selectedTrack}`);
     audio.loop = true;
     audio.volume = musicVolume;
+
     void audio.play().catch(() => undefined);
     setBattleMusic(audio);
     setScreen("combat");
@@ -1172,11 +1186,11 @@ function CombatScreen({
                 ? ` ${effect.amount ?? 20}%`
                 : effect.kind === "ability-seal"
                   ? `: ${combatant.abilities.find((ability) => ability.id === effect.abilityId)?.name ?? "próxima ação"}`
-                      : effect.kind === "malediction"
-                        ? ` (+${Math.round(effect.amount ?? 10)} Sangramento)`
-                        : effect.kind === "cooperation" || effect.kind === "grand-band"
-                          ? ` ${Math.round(effect.amount ?? 0)}`
-                  : "";
+                  : effect.kind === "malediction"
+                    ? ` (+${Math.round(effect.amount ?? 10)} Sangramento)`
+                    : effect.kind === "cooperation" || effect.kind === "grand-band"
+                      ? ` ${Math.round(effect.amount ?? 0)}`
+                      : "";
         const source = effect.sourceId ? findAbilityRecord(effect.sourceId) : undefined;
         statuses.push({
           key: effect.kind,
@@ -1385,18 +1399,18 @@ function CombatScreen({
                 {pendingAttack ? (
                   pendingAttackTarget?.alive
                     && !pendingAttackTarget.effects.some((effect) => effect.kind === "hidden") ? (
-                      <button
-                        type="button"
-                        onClick={() => applyAction(pendingAttack.abilityId, pendingAttack.targetId)}
-                      >
-                        Atacar {pendingAttackTarget.name} (ataque preparado)
-                      </button>
-                    ) : (
-                      <>
-                        <span>O alvo do ataque preparado não pode mais ser atingido.</span>
-                        <button type="button" onClick={() => applyAction(null)}>Cancelar ataque preparado</button>
-                      </>
-                    )
+                    <button
+                      type="button"
+                      onClick={() => applyAction(pendingAttack.abilityId, pendingAttack.targetId)}
+                    >
+                      Atacar {pendingAttackTarget.name} (ataque preparado)
+                    </button>
+                  ) : (
+                    <>
+                      <span>O alvo do ataque preparado não pode mais ser atingido.</span>
+                      <button type="button" onClick={() => applyAction(null)}>Cancelar ataque preparado</button>
+                    </>
+                  )
                 ) : !pendingTargetAbility && active.abilities.map((ability) => {
                   const belowHealthThreshold = ability.useBelowHealthFraction === undefined
                     || active.hp / active.maxHp < ability.useBelowHealthFraction;
