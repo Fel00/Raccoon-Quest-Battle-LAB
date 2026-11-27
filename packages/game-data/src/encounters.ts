@@ -13,7 +13,7 @@ export const battleEncounters: BattleEncounter[] = [
     title: "Sombras no Dossel",
     difficulty: "Moderado",
     description: "Escondido, sangramento e magia se combinam entre os habitantes da copa.",
-    opponentIds: ["coruja-sabia", "morcego-vampiro", "morcego-vampiro", "sapo-peculiar", "iniciado-arcana"],
+    opponentIds: ["coruja-sabia", "morcego-vampiro", "morcego-vampiro", "sapo-peculiar"],
   },
   {
     id: "matilha-sanguinaria",

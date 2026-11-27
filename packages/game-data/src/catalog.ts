@@ -513,7 +513,7 @@ export const enemies: Enemy[] = [
   enemy("lobo-cinzento", "Lobo Cinzento", "Lobo", "Guerreiro", "Predador feroz.", 330, 25, 5, 15, 4, "Floresta",
     [ability("mordida-sanguinaria", "Mordida Sanguinária", "1x físico; +50% contra sangramento."),
       ability("uivo-lobo", "Uivo", "Recupera 10% da vida.")], 31),
-  enemy("morcego-vampiro", "Morcego Vampiro", "Morcego", "Ladino", "Aplica sangramento e Escondido.", 100, 18, 10, 8, 6, "Floresta",
+  enemy("morcego-vampiro", "Morcego Vampiro", "Morcego", "Ladino", "Aplica sangramento e Escondido.", 150, 75, 10, 8, 6, "Floresta",
     [ability("sugador-sangue", "Sugador de Sangue", "0.5x físico e sangramento por 2 turnos."),
       ability("eco-localizador", "Eco Localizador", "Fica escondido até o próximo turno.")], 31),
   enemy("cervo-guardiao", "Cervo Guardião", "Cervo", "Guerreiro", "Protetor da floresta.", 450, 20, 15, 30, 3, "Floresta",
